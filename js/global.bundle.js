@@ -64,6 +64,7 @@
 	var todos = [];
 	var taskInput = document.querySelector('#taskInput');
 
+	// add a new todo item
 	var addTodo = function addTodo() {
 	    if (taskInput.value != '') {
 	        todos.push(taskInput.value);
@@ -73,6 +74,7 @@
 	    }
 	};
 
+	// events for check mark and x buttons
 	var addButtonEvents = function addButtonEvents() {
 	    var buttons = document.querySelectorAll('.todoItem .button');
 	    buttons.forEach(function (button, i) {
@@ -84,7 +86,6 @@
 	            } else if (button.classList.contains('remove')) {
 	                this.classList.remove('remove');
 	                var hide = this.parentNode.previousSibling.parentNode;
-	                // console.log(hide.className)
 	                hide.classList.remove('fadeInDown');
 	                hide.classList.add('fadeOutUp');
 	                setTimeout(function () {
@@ -95,10 +96,10 @@
 	    });
 	};
 
-	// events for buttons and input
+	// events for add/clear buttons and input
 	document.querySelector('#addTask').addEventListener('click', addTodo);
 	document.querySelector('#taskInput').addEventListener('keypress', function (e) {
-	    if (e.key === 'Enter') {
+	    if (e.which === 13) {
 	        addTodo();
 	    }
 	});
@@ -106,6 +107,7 @@
 	    taskInput.value = '';
 	});
 
+	// function to render the view using the todos array
 	function renderView(todos) {
 	    _reactDom2.default.render(_react2.default.createElement(_Todos2.default, { data: todos }), document.getElementById('todos'));
 	}

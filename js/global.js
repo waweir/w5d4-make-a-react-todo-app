@@ -6,6 +6,7 @@ import Todos from '../components/Todos'
 var todos = []
 var taskInput = document.querySelector('#taskInput')
 
+// add a new todo item
 var addTodo = function() {
     if (taskInput.value != '') {
         todos.push(taskInput.value)
@@ -15,6 +16,7 @@ var addTodo = function() {
     }
 }
 
+// events for check mark and x buttons
 var addButtonEvents = function() {
     var buttons = document.querySelectorAll('.todoItem .button')
     buttons.forEach(function(button, i) {
@@ -26,7 +28,6 @@ var addButtonEvents = function() {
             } else if (button.classList.contains('remove')) {
                 this.classList.remove('remove')
                 var hide = this.parentNode.previousSibling.parentNode
-                // console.log(hide.className)
                 hide.classList.remove('fadeInDown')
                 hide.classList.add('fadeOutUp')
                 setTimeout(function() {
@@ -37,10 +38,10 @@ var addButtonEvents = function() {
     })
 }
 
-// events for buttons and input
+// events for add/clear buttons and input
 document.querySelector('#addTask').addEventListener('click', addTodo)
 document.querySelector('#taskInput').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
+    if (e.which === 13) {
         addTodo()
     }
 })
@@ -48,7 +49,7 @@ document.querySelector('#clearInput').addEventListener('click', function() {
     taskInput.value = ''
 })
 
-
+// function to render the view using the todos array
 function renderView(todos) {
     ReactDOM.render(
         <Todos data={todos} />,
